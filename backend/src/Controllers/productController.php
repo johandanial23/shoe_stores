@@ -7,13 +7,21 @@ use Slim\Http\Response;
 
 function getAllProducts($db)
 {
-    // $sql = 'Select p.name, p.price, p.price, c.name as category from products p ';
-    // $sql .= 'INNER JOIN categories c on p.category_id = c.id ';
     $sql = 'Select * from products';
     $stmt = $db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getSaleProduct($db)
+{
+    $sql = "SELECT * FROM products limit 4";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 
 //Get product by id
 function getProduct($db, $productId)

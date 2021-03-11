@@ -12,8 +12,19 @@ $app->get('/products', function (Request $request, Response $response, array $ar
     if (empty($data)) {
         return $this->response->withJson(array('error' => 'no data'), 404);
     }
-    return $this->response->withJson(array('data' => $data), 200);
+    return $this->response->withJson($data, 200);
 });
+
+// read table products
+$app->get('/product/sale', function (Request $request, Response $response, array $arg) {
+    $data = getSaleProduct($this->db);
+    if (empty($data)) {
+        return $this->response->withJson(array('error' => 'no data'), 404);
+    }
+    return $this->response->withJson($data, 200);
+});
+
+
 
 // request table prdouct by condition
 $app->get('/product/[{id}]', function ($request, $response, $args) {
@@ -67,53 +78,6 @@ $app->get('/product/[{id}]', function ($request, $response, $args) {
 //             return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
 //         }
 //         $data = deleteProduct($this->db, $productId);
-//         if (empty($data)) {
-//             return $this->response->withJson(array('delete' => 'success'), 200);
-//         }
-//         return $this->response->withJson(array('delete' => 'fail'), 404);
-//     }
-// );
-
-// // Search product by condition (by price)
-// $app->get('/product/price/[{price}]', function ($request, $response, $args) {
-//     $productPrice = $args['price'];
-//     if (!is_numeric($productPrice)) {
-//         return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
-//     }
-//     $data = searchProductbyPrice($this->db, $productPrice);
-//     if (empty($data)) {
-//         return $this->response->withJson(array('error' => 'no data'), 404);
-//     }
-//     return $this->response->withJson(array('data' => $data), 200);
-// });
-
-// //Edit product by condition (price)
-// $app->put(
-//     '/product/edit/[{price}]',
-//     function ($request, $response, $args) {
-//         $productPrice = $args['price'];
-//         if (!is_numeric($productPrice)) {
-//             return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
-//         }
-//         $form_data = $request->getParsedBody();
-//         $data = updateProductbyPrice($this->db, $productPrice, $form_data);
-//         if ($data <= 0) {
-//             return $this->response->withJson(array('error' => 'update data fail'), 500);
-//         }
-//         return $this->response->withJson(array('update data' => 'success'), 201);
-//     }
-// );
-
-// //Delete product by condition (price)
-// $app->delete(
-//     '/product/delete/[{price}]',
-//     function ($request, $response, $args) {
-//         $productPrice = $args['price'];
-//         // $data = deleteProductbyPrice($this->db, $productPrice);
-//         if (!is_numeric($productPrice)) {
-//             return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
-//         }
-//         $data = deleteProductbyPrice($this->db, $productPrice);
 //         if (empty($data)) {
 //             return $this->response->withJson(array('delete' => 'success'), 200);
 //         }

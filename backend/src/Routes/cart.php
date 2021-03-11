@@ -6,13 +6,13 @@ use Slim\Http\Response;
 // include product controller file
 include __DIR__ . '/../Controllers/cartController.php';
 
-// read table products
-$app->get('/carts/[{id}]', function (Request $request, Response $response, array $arg) {
+// read table carts
+$app->get('/carts', function (Request $request, Response $response, array $arg) {
     $data = getCarts($this->db);
     if (empty($data)) {
         return $this->response->withJson(array('error' => 'no data'), 404);
     }
-    return $this->response->withJson(array('data' => $data), 200);
+    return $this->response->withJson($data, 200);
 });
 
 // // request table prdouct by condition
@@ -29,16 +29,16 @@ $app->get('/carts/[{id}]', function (Request $request, Response $response, array
 // });
 
 
-// // Code to apply method POST
-// $app->post('/product/add', function ($request, $response, $args) {
-//     $form_data = $request->getParsedBody();
-//     $data = createProduct($this->db, $form_data);
+// Code to apply method POST
+$app->post('/cart/add', function ($request, $response, $args) {
+    $form_data = $request->getParsedBody();
+    $data = addtoCart($this->db, $form_data);
 
-//     if ($data <= 0) {
-//         return $this->response->withJson(array('error' => 'add data fail'), 500);
-//     }
-//     return $this->response->withJson(array('add data' => 'success'), 201);
-// });
+    if ($data <= 0) {
+        return $this->response->withJson(array('error' => 'add data fail'), 500);
+    }
+    return $this->response->withJson(array('add data' => 'success'), 201);
+});
 
 // //Code to apply method PUT
 // $app->put(
@@ -57,22 +57,35 @@ $app->get('/carts/[{id}]', function (Request $request, Response $response, array
 //     }
 // );
 
-// //Code to apply method DELETE
-// $app->delete(
-//     '/product/del/[{id}]',
-//     function ($request, $response, $args) {
-//         $productId = $args['id'];
-//         $data = deleteProduct($this->db, $productId);
-//         if (!is_numeric($productId)) {
-//             return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
-//         }
-//         $data = deleteProduct($this->db, $productId);
-//         if (empty($data)) {
-//             return $this->response->withJson(array('delete' => 'success'), 200);
-//         }
-//         return $this->response->withJson(array('delete' => 'fail'), 404);
-//     }
-// );
+//Code to apply method DELETE
+$app->delete(
+    '/cart/del/[{id}]',
+    function ($request, $response, $args) {
+        $productId = $args['id'];
+        $data = delCart($this->db, $productId);
+        if (!is_numeric($productId)) {
+            return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
+        }
+        $data = delCart($this->db, $productId);
+        if (empty($data)) {
+            return $this->response->withJson(array('delete' => 'success'), 200);
+        }
+        return $this->response->withJson(array('delete' => 'fail'), 404);
+    }
+);
+
+$app->delete(
+    '/cart/deleteAll',
+    function ($request, $response, $args) {
+        $data = delallCart($this->db);
+
+        $data = delallCart($this->db);
+        if (empty($data)) {
+            return $this->response->withJson(array('delete' => 'success'), 200);
+        }
+        return $this->response->withJson(array('delete' => 'fail'), 404);
+    }
+);
 
 // // Search product by condition (by price)
 // $app->get('/product/price/[{price}]', function ($request, $response, $args) {

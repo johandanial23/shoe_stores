@@ -7,9 +7,7 @@ use Slim\Http\Response;
 
 function getCarts($db)
 {
-    $sql = 'Select p.name, p.price, c.name as category from products p ';
-    $sql .= 'INNER JOIN categories c on p.category_id = c.id ';
-    $sql = 'Select * from products';
+    $sql = "SELECT carts.id, products.name, products.price, carts.quantity, products.image FROM carts INNER JOIN products on carts.product_id = products.id";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,21 +28,18 @@ function getCarts($db)
 // }
 
 
-// // add new product
-// function createProduct($db, $form_data)
-// {
-//     $sql = 'Insert into products (name, description, price, category_id, created) ';
-//     $sql .= 'values (:name, :description, :price, :category_id, :created)';
+// add new product
+function addtoCart($db, $form_data)
+{
+    $sql = 'Insert into carts (product_id, quantity) ';
+    $sql .= 'values (:product_id, :quantity)';
 
-//     $stmt = $db->prepare($sql);
-//     $stmt->bindParam(':name', $form_data['name']);
-//     $stmt->bindParam(':description', $form_data['description']);
-//     $stmt->bindParam(':price', $form_data['price']);
-//     $stmt->bindParam(':category_id', $form_data['category_id']);
-//     $stmt->bindParam(':created', $form_data['created']);
-//     $stmt->execute();
-//     return $db->lastInsertID();
-// }
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':product_id', $form_data['product_id']);
+    $stmt->bindParam(':quantity', $form_data['quantity']);
+    $stmt->execute();
+    return $db->lastInsertID();
+}
 
 // // Update existing record - insert ID by URL
 // function updateProduct($db, $productId, $form_data)
@@ -63,16 +58,23 @@ function getCarts($db)
 //     return $stmt->rowCount();
 // }
 
-// // Delete existing record
-// function deleteProduct($db, $productId)
-// {
-//     $sql = 'DELETE FROM products WHERE id = :id';
-//     $stmt = $db->prepare($sql);
-//     $id = (int) $productId;
-//     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-//     $stmt->execute();
-// }
+// Delete existing record
+function delCart($db, $productId)
+{
+    $sql = 'DELETE FROM carts WHERE id = :id';
+    $stmt = $db->prepare($sql);
+    $id = (int) $productId;
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+}
 
+// Delete existing record
+function delallCart($db)
+{
+    $sql = 'DELETE FROM carts';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+}
 
 
 // // Search product by (price)
