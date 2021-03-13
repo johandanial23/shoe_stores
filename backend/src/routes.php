@@ -10,6 +10,8 @@ require __DIR__ . '/Routes/product.php';
 // Customer route
 require __DIR__ . '/Routes/customer.php';
 
-
 // Cart route
 require __DIR__ . '/Routes/cart.php';
+
+//Order Route
+require __DIR__ . '/Routes/order.php';

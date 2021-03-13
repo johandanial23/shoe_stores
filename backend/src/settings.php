@@ -3,7 +3,7 @@ return [
     'settings' => [
         'displayErrorDetails' => true,
         'addContentLengthHeader' => false,
-        'upload_directory' => __DIR__ . '/../public/uploads',
+        'upload_directory' => 'D:\XAMPP\htdocs\shoe_stores\frontend\img',
 
         //Renderer settings
         'renderer' => [

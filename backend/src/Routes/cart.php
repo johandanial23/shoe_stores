@@ -15,20 +15,6 @@ $app->get('/carts', function (Request $request, Response $response, array $arg) 
     return $this->response->withJson($data, 200);
 });
 
-// // request table prdouct by condition
-// $app->get('/product/[{id}]', function ($request, $response, $args) {
-//     $productId = $args['id'];
-//     if (!is_numeric($productId)) {
-//         return $this->response->withJson(array('error' => 'numeric parameter required'), 422);
-//     }
-//     $data = getProduct($this->db, $productId);
-//     if (empty($data)) {
-//         return $this->response->withJson(array('error' => 'no data'), 404);
-//     }
-//     return $this->response->withJson(array('data' => $data), 200);
-// });
-
-
 // Code to apply method POST
 $app->post('/cart/add', function ($request, $response, $args) {
     $form_data = $request->getParsedBody();

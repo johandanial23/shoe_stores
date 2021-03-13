@@ -12,7 +12,8 @@ $app->get('/api/customers', function (Request $request, Response $response, arra
     if (empty($data)) {
         return $this->response->withJson(array('error' => 'no data'), 404);
     }
-    return $this->response->withJson(array('data' => $data), 200);
+
+    return $this->response->withJson($data, 201);
 });
 
 // // request table prdouct by condition
