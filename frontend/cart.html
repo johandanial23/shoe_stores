@@ -183,13 +183,13 @@ span.price {
     <div class="row">
     <div class="col-75">
         <div class="container">
-        <form action="#">
+        <form action="#" id="myform">
         
             <div class="row">
             <div class="col-50">
                 <h3>Billing Address</h3>
                 <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
+                <input type="text" id="fname" name="name" placeholder="John M. Doe" required>
                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                 <input type="text" id="email" name="email" placeholder="john@example.com">
                 <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
@@ -209,8 +209,8 @@ span.price {
                 </div>
                 <label for="cname">Name on Card</label>
                 <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                <label for="ccnum">Credit card number</label>
-                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                <label for="ccnum">Phone Number</label>
+                <input type="text" id="ccnum" name="phone" placeholder="1111-2222-3333-4444">
                 
             </div>
             
@@ -218,7 +218,7 @@ span.price {
             <label>
             <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
             </label>
-            <button onclick="proceedOrder()" type="submit" class="btn">Continue to checkout </button>
+            <button type="submit" class="btn">Continue to checkout </button>
         </form>
         </div>
     </div>
@@ -261,6 +261,8 @@ span.price {
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script>
 // Accordion
 function myAccFunc() {
@@ -294,15 +296,24 @@ function w3_close() {
         });
         alert('Product removed from cart');
         window.location.reload(false);
-    }
+      }
+</script>
 
-    function proceedOrder(){
-        const url = 'http://localhost:8888/cart/deleteAll';
-        fetch(url,{
-            method: 'DELETE',
-        });
-        alert('Thank you for shopping with us!');
-    }
+<script>
+  const myform = document.getElementById("myform");
+  
+  myform.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const url = "http://localhost:8888/order/add";
+    fetch(url, {
+      method: "post",
+      body: new FormData(myform),
+    }).catch(console.error).then(alert("Thank you shopping with us!"));
+    window.location.reload(false);
+    
+
+  });
 </script>
 
 </body>
