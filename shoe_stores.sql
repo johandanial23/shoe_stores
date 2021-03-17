@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2021 at 08:53 AM
+-- Generation Time: Mar 17, 2021 at 04:57 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.2
 
@@ -53,7 +53,10 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`id`, `name`, `address`, `phone`) VALUES
 (1, 'Ali', 'Jalan 111', '012222222'),
-(2, 'Abu', 'Jlaannn122233', '02314131');
+(2, 'Abu', 'Jlaannn122233', '02314131'),
+(8, 'John', 'Jalan Jalan CM', '098222222'),
+(9, 'John', 'Jalan Jalan CM', '098222222'),
+(10, 'Hayes Kinney', 'Doloremque voluptate', '+1 (441) 321-3846');
 
 -- --------------------------------------------------------
 
@@ -64,17 +67,17 @@ INSERT INTO `customers` (`id`, `name`, `address`, `phone`) VALUES
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL
+  `customer_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `product_id`, `customer_id`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 2, 2);
+INSERT INTO `orders` (`id`, `product_id`, `customer_id`, `quantity`) VALUES
+(10, 10, 9, 1),
+(11, 14, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -101,7 +104,9 @@ INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
 (12, 'Nike Air Max 95', 480, 'Nike_Airmax95.jpg'),
 (14, 'Adidas Yeezy 350 v3', 899, 'adidas_yeezy.png'),
 (16, 'Adidas Stan Smith', 299, 'StanSmith.jpg'),
-(17, 'Vans Old Skool', 289, 'vans_oldskool.jpg');
+(17, 'Vans Old Skool', 289, 'vans_oldskool.jpg'),
+(18, 'Crocsw', 666.66, 'StanSmith.jpg'),
+(28, 'New Balance', 15.55, 'c0c2712330504260.jpg');
 
 --
 -- Indexes for dumped tables
@@ -139,25 +144,25 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
